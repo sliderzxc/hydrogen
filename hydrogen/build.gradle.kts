@@ -41,4 +41,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     // okhttp
     implementation(libs.okhttp)
+    implementation(libs.gson)
 }

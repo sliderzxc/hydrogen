@@ -1,24 +1,28 @@
 package com.sliderzxc.hydrogen.test
 
+import com.sliderzxc.hydrogen.utils.toObject
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
 
 fun main() {
     val request: Request = Request.Builder()
-        .url("https://publicobject.com/helloworld.txt")
+        .url("https://jsonplaceholder.typicode.com/todos/1")
         .get()
         .build()
 
-    val client = OkHttpClient()
+    //response.peekBody(2048).string()
 
-    // Use the client to execute the request
-    client.newCall(request).execute().use { response: Response ->
+
+
+    val client = OkHttpClient()
+    client.newCall(request).execute().use { response ->
         if (response.isSuccessful) {
-            val responseBody = response.body?.string()
-            println(responseBody)
+            response.peekBody(2048).string()
+            println(response.peekBody(2048).string())
+            val a = response.body?.string()?.toObject<ResultDTO>()
+            println(a)
         } else {
-            println("Error: ${response.code}")
+            "Error: ${response.code}"
         }
     }
 }
