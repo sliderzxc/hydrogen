@@ -31,6 +31,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
