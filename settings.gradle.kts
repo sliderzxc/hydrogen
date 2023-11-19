@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Hydrogen"
+rootProject.name = "hydrogen"
 
 include(":sample")
 include(":hydrogen")

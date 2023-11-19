@@ -43,3 +43,16 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.gson)
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.sliderzxc.hydrogen"
+                artifactId = "core"
+                version = "0.0.1"
+            }
+        }
+    }
+}
