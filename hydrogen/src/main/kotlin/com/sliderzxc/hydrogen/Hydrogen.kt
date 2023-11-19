@@ -13,3 +13,4 @@ class Hydrogen(
 }
 
 fun hydrogen(block: Hydrogen.Builder.() -> Unit) = Hydrogen.Builder().apply(block).build()
+fun hydrogen() = Hydrogen.Builder().build()

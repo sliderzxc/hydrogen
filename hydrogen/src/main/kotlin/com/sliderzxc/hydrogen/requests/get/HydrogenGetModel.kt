@@ -11,7 +11,7 @@ data class HydrogenGetModel(
 ) {
     inline fun <reified T: Any> execute(): HydrogenResult<T> {
         val request: Request = Request.Builder()
-            .url(url ?: return HydrogenResult.Error(HydrogenException()))
+            .url(url ?: return HydrogenResult.Error(HydrogenException.HydrogenUrlException()))
             .get()
             .build()
 
