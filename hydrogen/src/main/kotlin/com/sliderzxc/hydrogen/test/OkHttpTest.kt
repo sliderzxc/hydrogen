@@ -19,7 +19,7 @@ fun main() {
         if (response.isSuccessful) {
             response.peekBody(2048).string()
             println(response.peekBody(2048).string())
-            val a = response.body?.string()?.toObject<ResultDTO>()
+            val a = response.body?.string()?.toObject<TestResponse>()
             println(a)
         } else {
             "Error: ${response.code}"
