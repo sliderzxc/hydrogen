@@ -10,19 +10,22 @@ fun main() {
     val hydrogen = hydrogen()
     val hydrogen1 = hydrogen("baseUrl")
     val hydrogen2 = hydrogen {
-        baseUrl = "dsdsds"
+        baseUrl = "http://127.0.0.1:8080/"
     }
 
-    val resultSuccess = hydrogen2.get<TestResponse> {
-//        url = "https://jsonplaceholder.typicode.com/todos/1"
-//        headers {
-//            header {
-//                key = "Hello"
-//                value = "World"
-//            }
-//            header("dsds" to "dsdsd")
-//        }
+    val result1 = hydrogen1.get<TestResponse> {
         url = "http://127.0.0.1:8080/get"
+        headers {
+            header("testKey" to "testValue")
+            header {
+                key = "testKey1"
+                value = "testValue1"
+            }
+        }
+    }
+
+    val resultSuccess2 = hydrogen2.get<TestResponse> {
+        url = "get"
         headers {
             header("testKey" to "testValue")
             header {
@@ -36,30 +39,39 @@ fun main() {
 //        // url = "https://jsonplaceholder.typicode.com/todos/1"
 //    }
 
-    when (resultSuccess) {
+    when (resultSuccess2) {
         is HydrogenResult.Success -> {
-            val successResult = resultSuccess.result
+            val successResult = resultSuccess2.result
             println("Success: $successResult")
         }
         is HydrogenResult.Error -> {
-            when (resultSuccess.exception) {
+            when (resultSuccess2.exception) {
                 is HydrogenException.HydrogenUrlException -> {
-                    println("Error: ${resultSuccess.exception.message}")
+                    println("Error: ${resultSuccess2.exception.message}")
+                }
+
+                is HydrogenException.HydrogenWrongEndOfUrlException -> {
+                    println("Error: ${resultSuccess2.exception.message}")
                 }
             }
         }
     }
 
-//    when (resultFailure) {
-//        is HydrogenResult.Error -> {
-//            when (resultFailure.exception) {
-//                is HydrogenException.HydrogenUrlException -> {
-//                    println("Error: ${resultFailure.exception.message}")
-//                }
-//            }
-//        }
-//        is HydrogenResult.Success -> {
-//            println("Success: ${resultFailure.result}")
-//        }
-//    }
+    when (result1) {
+        is HydrogenResult.Success -> {
+            val successResult = result1.result
+            println("Success: $successResult")
+        }
+        is HydrogenResult.Error -> {
+            when (result1.exception) {
+                is HydrogenException.HydrogenUrlException -> {
+                    println("Error: ${result1.exception.message}")
+                }
+
+                is HydrogenException.HydrogenWrongEndOfUrlException -> {
+                    println("Error: ${result1.exception.message}")
+                }
+            }
+        }
+    }
 }

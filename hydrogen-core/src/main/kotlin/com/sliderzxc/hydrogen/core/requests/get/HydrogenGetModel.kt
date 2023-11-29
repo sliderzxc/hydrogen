@@ -13,16 +13,17 @@ data class HydrogenGetModel(
     val url: String?,
     val headers: Headers
 ) {
-    inline fun <reified T: Any> execute(): HydrogenResult<T> {
+    inline fun <reified T: Any> execute(baseUrl: String?): HydrogenResult<T> {
         val headerBuilder = okhttp3.Headers.Builder()
-        headers.forEach { (key, value) ->
-            // todo
-            println("header: $key, $value")
-            headerBuilder.add(key, value)
+        headers.forEach { (key, value) -> headerBuilder.add(key, value) }
+
+        val finishUrl = if (baseUrl == null) url else baseUrl + url
+        if (baseUrl?.endsWith('/') == false) {
+            return HydrogenResult.Error(HydrogenException.HydrogenWrongEndOfUrlException())
         }
 
         val request: Request = Request.Builder()
-            .url(url ?: return HydrogenResult.Error(HydrogenException.HydrogenUrlException()))
+            .url(finishUrl ?: return HydrogenResult.Error(HydrogenException.HydrogenUrlException()))
             .get()
             .headers(headerBuilder.build())
             .build()
