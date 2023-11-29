@@ -1,16 +1,19 @@
 package com.sliderzxc.hydrogen.core.test
 
+import com.sliderzxc.hydrogen.core.builders.hydrogen
 import com.sliderzxc.hydrogen.core.exception.HydrogenException
-import com.sliderzxc.hydrogen.core.hydrogen
 import com.sliderzxc.hydrogen.core.model.to
 import com.sliderzxc.hydrogen.core.requests.get.get
 import com.sliderzxc.hydrogen.core.result.HydrogenResult
 
 fun main() {
     val hydrogen = hydrogen()
-    val hydrogen1 = hydrogen{}
+    val hydrogen1 = hydrogen("baseUrl")
+    val hydrogen2 = hydrogen {
+        baseUrl = "dsdsds"
+    }
 
-    val resultSuccess = hydrogen1.get<TestResponse> {
+    val resultSuccess = hydrogen2.get<TestResponse> {
 //        url = "https://jsonplaceholder.typicode.com/todos/1"
 //        headers {
 //            header {
